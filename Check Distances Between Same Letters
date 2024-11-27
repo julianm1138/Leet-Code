@@ -1,0 +1,33 @@
+You are given a 0-indexed string s consisting of only lowercase English letters, where each letter in s appears exactly twice. You are also given a 0-indexed integer array distance of length 26.
+
+Each letter in the alphabet is numbered from 0 to 25 (i.e. 'a' -> 0, 'b' -> 1, 'c' -> 2, ... , 'z' -> 25).
+
+In a well-spaced string, the number of letters between the two occurrences of the ith letter is distance[i]. If the ith letter does not appear in s, then distance[i] can be ignored.
+
+Return true if s is a well-spaced string, otherwise return false.
+
+// We can solve this by calculating the distance between each pair of identical letters and checking if the position of the letters in the distance array is equal to the distance between the two letters.
+//In other words, checking if the calculated distance is equal to the position in the integer array (which is mapped to the positions of the letters of the alphabet).
+
+//Loop through the string and check if the current letter exists in the object, if not, add the letter as the key and its index as the value.
+//Else if the difference between the two same letters is not equal to the position inside the distance array, return false (becuse this means the actual distance is not equal to the provided distance).
+//Else return true
+
+var checkDistances = function(s, distance) {
+  
+    const letters = {};
+   
+    for (i in s) {
+        const letter = s[i];
+        const mappedLetter = letter.charCodeAt(0) - 97;
+     if (letters[letter] === undefined) {
+        letters[letter] = i;
+     } else {
+        let calculatedDistance = Number(i) - letters[letter] - 1;
+        if (calculatedDistance !== distance[mappedLetter]) {
+            return false;
+        }
+     }
+ }
+    return true;
+};
