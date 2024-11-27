@@ -1,0 +1,30 @@
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+
+
+// We can solve this by storing the complement in an object and when we find the other complement we return the index of the stored complement and the index of the current complement.
+// Define an object.
+// Loop through the array and define the complement as the target - current array element.
+// If the current iteration's complement exists in the object, that means we've reached the other complement that adds to the target.
+
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+   const map = {};
+   for (let i in nums) {
+    let complement = target - nums[i];   
+                                          
+    if (complement in map) {
+        return [map[complement], Number(i)];
+    }
+    map[nums[i]] = Number(i)
+    
+   }
+};
