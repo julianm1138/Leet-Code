@@ -1,1 +1,1 @@
-Practice with leet code problems (JS)
+Practice with leet code problems (TS)
