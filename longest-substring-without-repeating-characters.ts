@@ -1,21 +1,20 @@
 function lengthOfLongestSubstring(s: string): number {
   let start = 0;
-  let end = 0;
-  let longest = 0;
+  let maxLen = 0;
+  const seen = new Set<string>();
 
-  while (end < s.length) {
-    const currentWindow = s.slice(start, end + 1);
-    const set = new Set(currentWindow);
+  for (let end = 0; end < s.length; end++) {
+    const char = s[end];
 
-    if (set.size < currentWindow.length) {
+    while (seen.has(char)) {
+      seen.delete(s[start]);
       start++;
-    } else {
-      end++;
-      longest = Math.max(longest, currentWindow.length);
     }
+    seen.add(char);
+    maxLen = Math.max(maxLen, end - start + 1);
   }
 
-  return longest;
+  return maxLen;
 }
 
 console.log(lengthOfLongestSubstring("abcabcbb"));
