@@ -1,7 +1,17 @@
 function isAnagram(s: string, t: string): boolean {
-  const sortedS = s.split("").sort().join("");
-  const sortedT = t.split("").sort().join("");
-  return sortedS === sortedT;
+  const count: { [key: string]: number } = {};
+
+  if (s.length !== t.length) return false;
+  for (const char of s) {
+    count[char] = (count[char] || 0) + 1;
+  }
+  for (const char of t) {
+    if (!count[char]) {
+      return false;
+    }
+    count[char]--;
+  }
+  return true;
 }
 
-console.log(isAnagram("cat", "tac"));
+console.log(isAnagram("cscdsdat", "tac"));

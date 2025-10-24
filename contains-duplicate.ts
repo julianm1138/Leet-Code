@@ -1,5 +1,6 @@
 function containsDuplicate(nums: number[]): boolean {
-  let set = new Set<number>(nums);
+  const set = new Set([...nums]);
+  console.log(set);
   return set.size !== nums.length;
 }
 

@@ -6,6 +6,7 @@ function groupAnagrams(strs: string[]): string[][] {
       anagrams[key] = [];
     }
     anagrams[key].push(s);
+    console.log(anagrams);
   }
   return Object.values(anagrams);
 }
