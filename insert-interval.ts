@@ -3,23 +3,22 @@ function insertInterval(
   newInterval: number[]
 ): number[][] {
   let result: number[][] = [];
-  let [start, end] = intervals[0];
   let [newStart, newEnd] = newInterval;
-
-  for (let i = 0; i < intervals.length; i++) {
-    if (newStart <= end) {
-      end = Math.max(newEnd, end);
-    } else {
-      result.push([start, end]);
-    }
+  let i = 0;
+  while (i < intervals.length && intervals[i][1] < newStart) {
+    result.push(intervals[i]);
+    i++;
   }
-  console.log([start, end]);
-
-  //[1, 3], [6, 9],   [2,5] -> [1,5]
-  //if newStart <= end
-  //set end to the max value of newEnd and end
-  //else push interval
-  //[1,5],[6,9]
+  while (i < intervals.length && intervals[i][0] <= newStart) {
+    newStart = Math.min(intervals[i][0], newStart);
+    newEnd = Math.max(intervals[i][1], newEnd);
+    i++;
+  }
+  result.push([newStart, newEnd]);
+  while (i < intervals.length) {
+    result.push(intervals[i]);
+    i++;
+  }
   return result;
 }
 console.log(
