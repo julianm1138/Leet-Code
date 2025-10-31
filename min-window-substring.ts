@@ -1,37 +1,43 @@
 function minWindow(s: string, t: string): string {
-  if (t.length > s.length) {
-    return "";
-  }
-  let window = "";
-  let i = 0;
-  let char = s[i];
-  while (!includesAllChars(window, t)) {
-    if (char.includes(t)) {
-      window += char;
+  const count: Record<string, number> = {};
 
-      while (isUnique(window)) {
-        window += char;
-      }
-      window = "";
+  for (const char of t) {
+    if (count[char] === undefined) {
+      count[char] = 1;
+    } else {
+      count[char] += 1;
     }
-    console.log(window);
   }
-  return window;
+  console.log(count);
+  let left = 0;
+  let right = 0;
+  let minWindow = 0;
+  const allCovered = Object.values(count).every((v) => v <= 0);
+  while (right <= s.length) {
+    if (count[s[right]] !== undefined) {
+      count[s[right]]--;
+    }
 
-  function includesAllChars(base: string, pattern: string): boolean {
-    return [...pattern].every((char) => base.includes(char));
+    right++;
+    while (allCovered) {
+      left++;
+      if (right - left <= minWindow) {
+        minWindow = right - left;
+      }
+    }
   }
-  function isUnique(str: string): boolean {
-    return new Set(str).size === str.length;
-  }
+  console.log(count);
+
+  return s.slice(left, right);
 }
 console.log(minWindow("DOBECODEBANC", "ABC"));
 
-//while the window does not have every character in t:
-//if char includes anything from t add to the window and expand window until we hit duplicate
-//while window has no duplicates and does not have everything in t
-//if the window has duplicate, restart the window at that point
+//define hashmap/frequency map where each character of t is the key, set to how many I need
+//create substring that includes everything in t
+//shrink substring from the left
+//if the character is seen
+// until everything in the hashmap has a quantity of 1
 //return window
-// Input: s = "DOBECODEBANC", t = "AB"      let window = "BA"
+// Input: s = "DOBECODEBANC", t = "ABC"    A: 0, B: -1, C: -1
 // Output: "BANC"
 // Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
