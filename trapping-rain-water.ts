@@ -1,12 +1,28 @@
 function trap(height: number[]): number {
-  for (let i = 0; i < height.length; i++) {
-    let maxRight = height[0];
-    let maxLeft = height[0];
-    maxRight = Math.max(height[i], height[i + 1]);
-    maxLeft = Math.max(height[i], height[i - 1]);
-    const waterLevel = Math.min(maxRight, maxLeft);
+  let left = 0;
+  let right = height.length - 1;
+  let maxRight = 0;
+  let maxLeft = 0;
+  let totalWater = 0;
+
+  while (left <= right) {
+    if (height[left] < height[right]) {
+      if (height[left] >= maxLeft) {
+        maxLeft = height[left];
+      } else {
+        totalWater += maxLeft - height[left];
+      }
+      left++;
+    } else {
+      if (height[right] > maxRight) {
+        maxRight = height[right];
+      } else {
+        totalWater += maxRight - height[right];
+      }
+
+      right--;
+    }
   }
-  let trappedWater = waterLevel - height[i];
-  return 0;
+  return totalWater;
 }
 console.log(trap([4, 2, 0, 3, 2, 5]));
