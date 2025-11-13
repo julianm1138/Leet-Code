@@ -10,7 +10,7 @@ function trap(height: number[]): number {
       if (height[left] >= maxLeft) {
         maxLeft = height[left];
       } else {
-        totalWater += maxLeft - height[left];
+        totalWater += maxLeft - height[left]; //if the current bar is lower than the max height, then water can sit on top of it so you need the difference.
       }
       left++;
     } else {

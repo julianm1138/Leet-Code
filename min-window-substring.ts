@@ -8,27 +8,27 @@ function minWindow(s: string, t: string): string {
       count[char] += 1;
     }
   }
-  console.log(count);
+
   let left = 0;
   let right = 0;
-  let minWindow = 0;
-  const allCovered = Object.values(count).every((v) => v <= 0);
+  let minWindow = Infinity;
+  let minStart = 0;
   while (right <= s.length) {
     if (count[s[right]] !== undefined) {
       count[s[right]]--;
     }
 
     right++;
-    while (allCovered) {
-      left++;
+    while (Object.values(count).every((v) => v <= 0)) {
       if (right - left <= minWindow) {
         minWindow = right - left;
       }
+      left++;
     }
   }
   console.log(count);
 
-  return s.slice(left, right);
+  return s.slice(minStart, minWindow);
 }
 console.log(minWindow("DOBECODEBANC", "ABC"));
 
