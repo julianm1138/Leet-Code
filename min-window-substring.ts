@@ -23,10 +23,10 @@ function minWindow(s: string, t: string): string {
       if (right - left <= minWindow) {
         minWindow = right - left;
       }
+      count[s[left]]++;
       left++;
     }
   }
-  console.log(count);
 
   return s.slice(minStart, minWindow);
 }

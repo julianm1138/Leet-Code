@@ -5,6 +5,7 @@ function mergeSortedArr(
   n: number
 ): number[] {
   let i = m - 1;
+  console.log(i);
   let j = n - 1;
   let k = m + n - 1;
 
