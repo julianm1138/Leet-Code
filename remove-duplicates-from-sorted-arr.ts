@@ -1,17 +1,16 @@
 function removeDuplicates(nums: any[]): number {
-  let insertPos = 0;
+  if (nums.length === 0) return 0;
 
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] !== "_") {
-      nums[insertPos] = nums[i];
-      insertPos++;
+  let writer = 0;
+  let reader = 1;
+  while (reader < nums.length) {
+    if (nums[reader] !== nums[writer]) {
+      writer++;
+      nums[writer] = nums[reader];
     }
-  }
-  for (let i = insertPos; i < nums.length; i++) {
-    nums[i] = "_";
+    reader++;
   }
 
-  console.log("nums", nums);
-  return nums.length;
+  return writer + 1;
 }
-console.log(removeDuplicates([0, 0, 1, 1, 1]));
+console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
