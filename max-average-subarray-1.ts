@@ -1,19 +1,15 @@
 function maxAvgSubarr(nums: number[], k: number): number {
   let start = 0;
   let end = k - 1;
-
-  let maxSum = Number.NEGATIVE_INFINITY;
+  let currentSum = nums.slice(0, k).reduce((acc, val) => val + acc, 0);
+  let maxSum = currentSum;
   while (end < nums.length) {
-    let currentSum = 0;
-    for (let i = start; i <= end; i++) {
-      currentSum += nums[i];
-    }
-
+    end++;
+    currentSum = currentSum + nums[end] - nums[start];
+    start++;
     if (currentSum > maxSum) {
       maxSum = currentSum;
     }
-    start++;
-    end++;
   }
   return maxSum / k;
 }
