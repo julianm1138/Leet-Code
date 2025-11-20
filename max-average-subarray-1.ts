@@ -2,10 +2,9 @@ function maxAvgSubarr(nums: number[], k: number): number {
   let start = 0;
   let end = k - 1;
 
-  let maxSum = 0;
-  let currentSum = 0;
-
+  let maxSum = Number.NEGATIVE_INFINITY;
   while (end < nums.length) {
+    let currentSum = 0;
     for (let i = start; i <= end; i++) {
       currentSum += nums[i];
     }
@@ -13,13 +12,12 @@ function maxAvgSubarr(nums: number[], k: number): number {
     if (currentSum > maxSum) {
       maxSum = currentSum;
     }
-    currentSum = 0;
     start++;
     end++;
   }
   return maxSum / k;
 }
-console.log(maxAvgSubarr([-1], 1));
+console.log(maxAvgSubarr([1, 12, -5, -6, 50, 3], 4));
 
 //create a k sized window
 //calculate max sum
